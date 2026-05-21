@@ -47,7 +47,7 @@ function App() {
       karma: 84,
       feedbackCount: 9,
       cover: '#211908',
-      coverImage: '/covers/cover-1.png',
+      coverImage: `${import.meta.env.BASE_URL}covers/cover-1.png`,
       sections: [
         { label: 'The idea', body: 'Every weekday morning, I send myself a question - "what would make today feel like mine?" I want to send a softer version of that to other people who struggle to start.' },
         { label: 'Where I\'m stuck', body: 'I can\'t tell if this is a newsletter or a tiny app. I keep flipping between the two and not shipping either.' },
