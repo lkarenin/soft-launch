@@ -26,6 +26,7 @@ function App() {
   const [stack, setStack] = useState([{ name: 'splash', params: {} }]);
   const [user, setUser] = useState(INITIAL_USER);
   const [savedIds, setSavedIds] = useState(new Set(SAVED));
+  const [savedEventIds, setSavedEventIds] = useState(new Set());
   const [feedbackUnlockedIds, setFeedbackUnlockedIds] = useState(new Set());
   const [theme, setTheme] = useState('dark');
   const [anonymousByDefault, setAnonymousByDefault] = useState(false);
@@ -46,6 +47,7 @@ function App() {
       karma: 84,
       feedbackCount: 9,
       cover: '#211908',
+      coverImage: '/covers/cover-1.png',
       sections: [
         { label: 'The idea', body: 'Every weekday morning, I send myself a question - "what would make today feel like mine?" I want to send a softer version of that to other people who struggle to start.' },
         { label: 'Where I\'m stuck', body: 'I can\'t tell if this is a newsletter or a tiny app. I keep flipping between the two and not shipping either.' },
@@ -88,6 +90,15 @@ function App() {
 
   const toggleSave = useCallback((id) => {
     setSavedIds((s) => {
+      const next = new Set(s);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
+
+  const toggleSaveEvent = useCallback((id) => {
+    setSavedEventIds((s) => {
       const next = new Set(s);
       if (next.has(id)) next.delete(id);
       else next.add(id);
@@ -161,7 +172,7 @@ function App() {
           />
         );
       case 'events':
-        return <Events nav={nav} />;
+        return <Events nav={nav} savedEventIds={savedEventIds} toggleSaveEvent={toggleSaveEvent} />;
       case 'eventDetail':
         return <EventDetail nav={nav} eventId={current.params.id} />;
       case 'eventRsvp':

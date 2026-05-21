@@ -12,6 +12,9 @@ function isAnon(project) {
 }
 
 function ProjectFeedCard({ project, onOpen, isSaved, onSave }) {
+  const coverStyle = project.coverImage
+    ? { backgroundImage: `url(${project.coverImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundColor: project.cover }
+    : { background: project.cover };
   return (
     <div
       className="feed-card"
@@ -20,7 +23,7 @@ function ProjectFeedCard({ project, onOpen, isSaved, onSave }) {
       onClick={onOpen}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(); } }}
     >
-      <div className="cover" style={{ background: project.cover }}>
+      <div className="cover" style={coverStyle}>
         <div className="interest-tag">
           <InterestIcon id={project.interest} size={13} />
           <span>{interestLabel(project.interest)}</span>
@@ -68,9 +71,12 @@ function ProjectFeedCard({ project, onOpen, isSaved, onSave }) {
 }
 
 function GridProjectCard({ project, onOpen }) {
+  const coverStyle = project.coverImage
+    ? { backgroundImage: `url(${project.coverImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundColor: project.cover }
+    : { background: project.cover };
   return (
     <button className="grid-card" onClick={onOpen}>
-      <div className="cover" style={{ background: project.cover }}>
+      <div className="cover" style={coverStyle}>
         <div className="karma-pill karma-tag" style={{ position: 'absolute', bottom: 10, left: 10 }}>
           <span className="spark"><SparkIcon size={12} /></span>
           {project.karma}
@@ -101,9 +107,8 @@ export default function Home({ nav, user, projects, savedIds, toggleSave }) {
       </div>
 
       <div className="home-head">
-        <div className="greeting">
-          Good morning - <em>ten new ideas</em> from people near you.
-        </div>
+        <div className="greeting">Welcome Back!</div>
+        <div className="greeting-sub">Here's 10 new inspiring ideas</div>
       </div>
 
       <div className="feed-toggle" role="tablist" aria-label="Feed view">

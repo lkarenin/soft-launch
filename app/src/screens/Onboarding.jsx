@@ -3,15 +3,7 @@ import { INTERESTS, BACKGROUNDS } from '../data';
 import { ChevronLeft, PinIcon, CheckIcon, SparkIcon, InterestIcon, SearchIcon, SeedIcon, ChatIcon } from '../components/Icons';
 
 const STEPS = ['interests', 'location', 'background', 'welcome'];
-const ONB_TOTAL = STEPS.length;
-
-function OnbStepLabel({ n }) {
-  return (
-    <div className="onb-step-label">
-      Step {n} of {ONB_TOTAL}
-    </div>
-  );
-}
+const ONB_STEP_TOTAL = 4;
 
 function highlightMatch(label, query) {
   if (!query) return label;
@@ -193,9 +185,12 @@ export default function Onboarding({ nav }) {
         ))}
       </div>
 
+      <div className="onb-step-label">
+        Step {stepIdx + 1} of {ONB_STEP_TOTAL}
+      </div>
+
       {step === 'interests' && (
         <>
-          <OnbStepLabel n={1} />
           <h2>What are you curious about?</h2>
           <p className="lede">Pick a few - we'll use these to surface ideas from people building in the same world as you.</p>
           <div className="interest-grid">
@@ -215,7 +210,6 @@ export default function Onboarding({ nav }) {
 
       {step === 'location' && (
         <>
-          <OnbStepLabel n={2} />
           <h2>Where are you based?</h2>
           <p className="lede">We'll show you nearby events and people, so showing up doesn't have to be a whole expedition.</p>
           <div className="autocomplete">
@@ -273,7 +267,6 @@ export default function Onboarding({ nav }) {
 
       {step === 'background' && (
         <>
-          <OnbStepLabel n={3} />
           <h2>What's your day-to-day right now?</h2>
           <p className="lede">No wrong answer - this just helps us match you with people who get it.</p>
           <div className="bg-list">
@@ -293,7 +286,6 @@ export default function Onboarding({ nav }) {
 
       {step === 'welcome' && (
         <>
-          <OnbStepLabel n={4} />
           <h2>Here's what you can do.</h2>
 
           <div className="welcome-cards">

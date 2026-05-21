@@ -38,7 +38,12 @@ export default function ProjectDetail({ nav, project, isSaved, toggleSave, feedb
 
       {effectiveTab === 'project' ? (
         <>
-          <div className="detail-cover" style={{ background: project.cover }} />
+          <div
+            className="detail-cover"
+            style={project.coverImage
+              ? { backgroundImage: `url(${project.coverImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundColor: project.cover }
+              : { background: project.cover }}
+          />
           <div className="detail-body">
             <div className="author-row">
               {project.anonymous && (project.feedbackCount || 0) === 0 ? (

@@ -3,14 +3,7 @@ import TopBar from '../components/TopBar';
 import { INTERESTS } from '../data';
 import { InterestIcon } from '../components/Icons';
 
-const COVERS = [
-  '#1F120D',
-  '#131F11',
-  '#211908',
-  '#0D1821',
-  '#1B0F20',
-  '#131318',
-];
+const DEFAULT_COVER = '#1F120D';
 
 const PROMPTS = [
   { label: 'The idea (in one breath)', placeholder: 'A neighborhood plant-swap app, no money - just trust and shared dirt.' },
@@ -19,7 +12,7 @@ const PROMPTS = [
 ];
 
 export default function NewProject({ nav, onCreate }) {
-  const [cover, setCover] = useState(COVERS[0]);
+  const [cover] = useState(DEFAULT_COVER);
   const [title, setTitle] = useState('');
   const [tagline, setTagline] = useState('');
   const [interest, setInterest] = useState('design');
@@ -33,22 +26,6 @@ export default function NewProject({ nav, onCreate }) {
       <div className="np">
         <div className="image-drop" style={{ background: cover }}>
           <div className="pick">+ Add image</div>
-        </div>
-
-        <div className="row" style={{ gap: 6, flexWrap: 'wrap', marginBottom: 18 }}>
-          {COVERS.map((c, i) => (
-            <button
-              key={i}
-              onClick={() => setCover(c)}
-              aria-label={`Pick palette ${i + 1}`}
-              style={{
-                width: 28, height: 28, borderRadius: 999,
-                background: c,
-                border: cover === c ? '2px solid var(--ink)' : '1px solid var(--line)',
-                cursor: 'pointer',
-              }}
-            />
-          ))}
         </div>
 
         <div className="np-field">

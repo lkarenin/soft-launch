@@ -76,9 +76,12 @@ export default function Profile({ nav, user, myProjects, savedIds, allProjects, 
       <div className="profile-body">
         {tab === 'projects' && (
           <div className="tile-list">
-            {myProjects.map((p) => (
+            {myProjects.map((p, idx) => (
               <button key={p.id} className="tile" onClick={() => nav.go('projectDetail', { id: p.id })}>
-                <div style={{ width: 52, height: 52, borderRadius: 12, background: p.cover, flexShrink: 0 }} />
+                <div
+                  className={idx % 2 === 0 ? 'gradient-blue' : 'gradient-purple'}
+                  style={{ width: 52, height: 52, borderRadius: 12, flexShrink: 0 }}
+                />
                 <div className="body">
                   <h4>{p.title}</h4>
                   <div className="sub">{interestLabel(p.interest)} · {p.feedbackCount} pieces of feedback</div>
@@ -163,9 +166,12 @@ export default function Profile({ nav, user, myProjects, savedIds, allProjects, 
           <div className="tile-list">
             {savedProjects.length === 0 ? (
               <div className="empty"><BookmarkIcon /> Nothing saved yet. Tap the bookmark on a project you want to come back to.</div>
-            ) : savedProjects.map((p) => (
+            ) : savedProjects.map((p, idx) => (
               <button key={p.id} className="tile" onClick={() => nav.go('projectDetail', { id: p.id })}>
-                <div style={{ width: 52, height: 52, borderRadius: 12, background: p.cover, flexShrink: 0 }} />
+                <div
+                  className={idx % 2 === 0 ? 'gradient-blue' : 'gradient-purple'}
+                  style={{ width: 52, height: 52, borderRadius: 12, flexShrink: 0 }}
+                />
                 <div className="body">
                   <h4>{p.title}</h4>
                   <div className="sub">{p.author} · {interestLabel(p.interest)}</div>

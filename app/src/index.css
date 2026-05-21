@@ -22,6 +22,13 @@
   --btn-accent-hover: #8577a0;
   --btn-accent-text: #ffffff;
 
+  --input-focus: #7781B1;
+  --input-focus-ring: rgba(119, 129, 177, 0.22);
+
+  --selected-bg: #7781B1;
+  --selected-bg-hover: #6C76A6;
+  --selected-text: #FFFFFF;
+
   --moss: #4A5A3A;
   --moss-soft: #1A201A;
   --gold: #B89030;
@@ -66,6 +73,13 @@
   --btn-accent: #9b8db4;
   --btn-accent-hover: #8577a0;
   --btn-accent-text: #ffffff;
+
+  --input-focus: #7781B1;
+  --input-focus-ring: rgba(119, 129, 177, 0.20);
+
+  --selected-bg: #7781B1;
+  --selected-bg-hover: #6C76A6;
+  --selected-text: #FFFFFF;
 
   --shadow-sm: 0 1px 2px rgba(40, 40, 40, 0.06), 0 1px 1px rgba(40, 40, 40, 0.04);
   --shadow-md: 0 6px 18px rgba(40, 40, 40, 0.08), 0 2px 4px rgba(40, 40, 40, 0.04);

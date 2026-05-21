@@ -1,5 +1,15 @@
 // Placeholder data for Foretold prototype
 
+export const COVER_IMAGES = [
+  '/covers/cover-1.png',
+  '/covers/cover-2.png',
+  '/covers/cover-3.png',
+  '/covers/cover-4.png',
+  '/covers/cover-5.png',
+  '/covers/cover-6.png',
+  '/covers/cover-7.png',
+];
+
 export const INTERESTS = [
   { id: 'food', label: 'Food & Drink' },
   { id: 'tech', label: 'Tech' },
@@ -38,6 +48,7 @@ export const PROJECTS = [
     title: 'Sprout',
     tagline: 'A neighborhood plant-swap app for people who keep accidentally turning their windowsills into jungles.',
     cover: '#131F11',
+    coverImage: '/covers/cover-2.png',
     karma: 312,
     feedbackCount: 47,
     interest: 'wellness',
@@ -56,6 +67,7 @@ export const PROJECTS = [
     title: 'Slow Sundays',
     tagline: 'A weekly newsletter that helps you plan a low-effort, joyful Sunday - like a friend who already did the research.',
     cover: '#211908',
+    coverImage: '/covers/cover-3.png',
     karma: 198,
     feedbackCount: 31,
     interest: 'media',
@@ -73,6 +85,7 @@ export const PROJECTS = [
     title: 'Quietly',
     tagline: 'A library of "first day on the job" guides written by the people who actually started.',
     cover: '#0D1821',
+    coverImage: '/covers/cover-4.png',
     karma: 421,
     feedbackCount: 62,
     interest: 'education',
@@ -89,6 +102,7 @@ export const PROJECTS = [
     title: 'Rivet',
     tagline: 'A tiny tool that makes it dead simple to repair small things at home - repair guides, parts, and a person on chat if you get stuck.',
     cover: '#1E1008',
+    coverImage: '/covers/cover-5.png',
     karma: 144,
     feedbackCount: 19,
     interest: 'hardware',
@@ -105,6 +119,7 @@ export const PROJECTS = [
     title: 'Kindred Kitchens',
     tagline: 'Pop-up dinners hosted by home cooks from immigrant families - share a meal, share a story.',
     cover: '#1B0F20',
+    coverImage: '/covers/cover-6.png',
     karma: 268,
     feedbackCount: 38,
     interest: 'food',
@@ -120,6 +135,7 @@ export const PROJECTS = [
     title: 'Threadwell',
     tagline: 'Repair-first clothing brand - every piece comes with a free lifetime repair credit.',
     cover: '#1F120D',
+    coverImage: '/covers/cover-7.png',
     karma: 89,
     feedbackCount: 12,
     interest: 'fashion',
@@ -151,6 +167,7 @@ export const EVENTS = [
     location: 'Williamsburg, NY',
     category: 'social',
     cover: '#1F120D',
+    coverImage: '/covers/event-1.png',
     going: 84,
     blurb: 'A loose, low-pressure evening for people building something small. Snacks, name tags optional, no pitching allowed.',
     questions: [
@@ -171,6 +188,7 @@ export const EVENTS = [
     location: 'Online',
     category: 'workshop',
     cover: '#131F11',
+    coverImage: '/covers/event-2.png',
     going: 212,
     blurb: 'Three hours, three exercises. You leave with a plan for finding your first ten customers.',
     questions: [
@@ -191,6 +209,7 @@ export const EVENTS = [
     location: 'Prospect Park, NY',
     category: 'hands-on',
     cover: '#211908',
+    coverImage: '/covers/event-3.png',
     going: 23,
     blurb: 'Get your hands dirty. We\'ll provide the clay, tools, and a two-hour guided session for total beginners.',
     questions: [
@@ -211,6 +230,7 @@ export const EVENTS = [
     location: 'Williamsburg, NY',
     category: 'talk',
     cover: '#0D1821',
+    coverImage: '/covers/event-4.png',
     going: 56,
     blurb: 'A one-hour talk on how to think through problems like a designer. Open Q&A after.',
     questions: [
@@ -231,6 +251,7 @@ export const EVENTS = [
     location: 'Online',
     category: 'workshop',
     cover: '#1B0F20',
+    coverImage: '/covers/event-1.png',
     going: 41,
     blurb: 'Tell five strangers what you\'re working on. They\'ll listen, nod, and ask one good question each.',
     questions: [

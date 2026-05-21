@@ -27,7 +27,12 @@ export default function EventDetail({ nav, eventId }) {
       </button>
 
       <div className="event-detail">
-        <div className="cover" style={{ background: event.cover }} />
+        <div
+          className="cover"
+          style={event.coverImage
+            ? { backgroundImage: `url(${event.coverImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundColor: event.cover }
+            : { background: event.cover }}
+        />
         <div className="event-detail-body">
           <h1>{event.title}</h1>
 

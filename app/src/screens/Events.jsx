@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { EVENTS, EVENT_CATEGORIES } from '../data';
-import { PinIcon, ClockIcon, CalendarIcon, ChevronLeft, ChevronRight } from '../components/Icons';
+import { PinIcon, ClockIcon, CalendarIcon, BookmarkIcon } from '../components/Icons';
 
 const LOCATIONS = ['All', 'Williamsburg, NY', 'Prospect Park, NY', 'Online'];
 
@@ -20,22 +20,27 @@ function buildCalendarGrid(info) {
   return cells;
 }
 
-export default function Events({ nav }) {
+export default function Events({ nav, savedEventIds, toggleSaveEvent }) {
   const [category, setCategory] = useState('all');
   const [location, setLocation] = useState('All');
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDays, setSelectedDays] = useState(new Set());
+  const [savedOnly, setSavedOnly] = useState(false);
+
+  const savedSet = savedEventIds || new Set();
+  const savedCount = savedSet.size;
 
   const eventDays = useMemo(() => new Set(EVENTS.map((e) => e.day)), []);
 
   const filtered = useMemo(() => {
     return EVENTS.filter((e) => {
+      if (savedOnly && !savedSet.has(e.id)) return false;
       if (category !== 'all' && e.category !== category) return false;
       if (location !== 'All' && e.location !== location) return false;
       if (selectedDays.size > 0 && !selectedDays.has(e.day)) return false;
       return true;
     });
-  }, [category, location, selectedDays]);
+  }, [category, location, selectedDays, savedOnly, savedSet]);
 
   const toggleDay = (d) => {
     setSelectedDays((s) => {
@@ -56,6 +61,15 @@ export default function Events({ nav }) {
         </div>
         <div className="spacer" />
         <button
+          className={`cal-toggle ${savedOnly ? 'active' : ''}`}
+          onClick={() => setSavedOnly((v) => !v)}
+          aria-label={savedOnly ? 'Show all events' : 'Show saved events'}
+          aria-pressed={savedOnly}
+        >
+          <BookmarkIcon size={18} filled={savedOnly} />
+          {savedCount > 0 && <span className="ev-saved-count">{savedCount}</span>}
+        </button>
+        <button
           className={`cal-toggle ${showCalendar ? 'active' : ''}`}
           onClick={() => setShowCalendar((v) => !v)}
           aria-label="Toggle calendar"
@@ -66,8 +80,8 @@ export default function Events({ nav }) {
 
       <div className="events">
         {/* Location filter */}
+        <div className="ev-filter-label">Location</div>
         <div className="ev-filter-row">
-          <PinIcon size={14} />
           <div className="ev-pills">
             {LOCATIONS.map((loc) => (
               <button
@@ -82,6 +96,7 @@ export default function Events({ nav }) {
         </div>
 
         {/* Category filter */}
+        <div className="ev-filter-label">Category</div>
         <div className="ev-category-row">
           {EVENT_CATEGORIES.map((c) => (
             <button
@@ -129,42 +144,74 @@ export default function Events({ nav }) {
 
         {/* Section label */}
         <div className="ev-section-label">
-          {selectedDays.size > 0
-            ? `${filtered.length} event${filtered.length !== 1 ? 's' : ''} on selected days`
-            : 'This week'}
+          {savedOnly
+            ? `${filtered.length} saved event${filtered.length !== 1 ? 's' : ''}`
+            : selectedDays.size > 0
+              ? `${filtered.length} event${filtered.length !== 1 ? 's' : ''} on selected days`
+              : 'This week'}
         </div>
 
         {/* Event cards */}
         {filtered.length === 0 ? (
           <div className="ev-empty">
-            <p>No events match your filters.</p>
-            <button className="btn-ghost" onClick={() => { setCategory('all'); setLocation('All'); setSelectedDays(new Set()); }}>
-              Clear all filters
-            </button>
+            {savedOnly ? (
+              <>
+                <p>You haven't saved any events yet. Tap the bookmark on an event you want to come back to.</p>
+                <button className="btn-ghost" onClick={() => setSavedOnly(false)}>
+                  Browse all events
+                </button>
+              </>
+            ) : (
+              <>
+                <p>No events match your filters.</p>
+                <button className="btn-ghost" onClick={() => { setCategory('all'); setLocation('All'); setSelectedDays(new Set()); }}>
+                  Clear all filters
+                </button>
+              </>
+            )}
           </div>
         ) : (
-          filtered.map((e) => (
-            <button key={e.id} className="event-card" onClick={() => nav.go('eventDetail', { id: e.id })}>
-              <div className="ev-card-row">
-                <div className="ev-date-block">
-                  <span className="ev-date-day">{e.day}</span>
-                  <span className="ev-date-wd">{e.weekday}</span>
-                </div>
-                <div className="ev-card-info">
-                  <div className="ev-card-cat">{EVENT_CATEGORIES.find((c) => c.id === e.category)?.label}</div>
-                  <h3>{e.title}</h3>
-                  <p>{e.blurb}</p>
-                  <div className="meta">
-                    <span><ClockIcon size={12} /> {e.time}</span>
-                    <span className="dot" />
-                    <span><PinIcon size={12} /> {e.location}</span>
+          filtered.map((e, idx) => {
+            const isSaved = savedSet.has(e.id);
+            return (
+              <div key={e.id} className="event-card" onClick={() => nav.go('eventDetail', { id: e.id })} role="button" tabIndex={0} onKeyDown={(ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); nav.go('eventDetail', { id: e.id }); } }}>
+                <div className="ev-card-row">
+                  <div className="ev-date-block">
+                    <span className="ev-date-day">{e.day}</span>
+                    <span className="ev-date-wd">{e.weekday}</span>
                   </div>
-                  <div className="ev-going">{e.going} going</div>
+                  <div className="ev-card-info">
+                    <div className="ev-card-cat">{EVENT_CATEGORIES.find((c) => c.id === e.category)?.label}</div>
+                    <h3>{e.title}</h3>
+                    <div className="meta">
+                      <span><ClockIcon size={12} /> {e.time}</span>
+                      <span className="dot" />
+                      <span><PinIcon size={12} /> {e.location}</span>
+                    </div>
+                    <div className="ev-going">
+                      <span>{e.going} going</span>
+                      {e.host && (
+                        <>
+                          <span className="dot" />
+                          <span className="ev-host">Hosted by <span className="ev-host-name">{e.host}</span></span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  <div className={`ev-cover-thumb ${idx % 2 === 0 ? 'gradient-blue' : 'gradient-purple'}`}>
+                    <button
+                      className={`ev-save ${isSaved ? 'is-saved' : ''}`}
+                      onClick={(ev) => { ev.stopPropagation(); toggleSaveEvent && toggleSaveEvent(e.id); }}
+                      aria-label={isSaved ? 'Unsave event' : 'Save event'}
+                      aria-pressed={isSaved}
+                    >
+                      <BookmarkIcon size={16} filled={isSaved} />
+                    </button>
+                  </div>
                 </div>
-                <div className="ev-cover-thumb" style={{ background: e.cover }} />
               </div>
-            </button>
-          ))
+            );
+          })
         )}
       </div>
     </div>
