@@ -28,7 +28,7 @@ function App() {
   const [savedIds, setSavedIds] = useState(new Set(SAVED));
   const [savedEventIds, setSavedEventIds] = useState(new Set());
   const [feedbackUnlockedIds, setFeedbackUnlockedIds] = useState(new Set());
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
   const [anonymousByDefault, setAnonymousByDefault] = useState(false);
 
   useEffect(() => {

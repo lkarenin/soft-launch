@@ -108,7 +108,7 @@ export default function ProjectDetail({ nav, project, isSaved, toggleSave, feedb
               onClick={() => nav.go('feedbackForm', { id: project.id })}
             >
               Give feedback
-              <span className="karma-pill" style={{ background: 'rgba(12,12,12,0.10)', border: '1px solid rgba(12,12,12,0.18)', color: 'var(--bg)', height: 24, padding: '0 8px' }}>
+              <span className="karma-pill" style={{ background: 'rgba(255,255,255,0.18)', border: '1px solid rgba(255,255,255,0.28)', color: 'var(--btn-accent-text)', height: 24, padding: '0 8px' }}>
                 <SparkIcon size={12} /> +15
               </span>
             </button>
