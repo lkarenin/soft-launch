@@ -32,6 +32,7 @@ function App() {
   const [feedbackUnlockedIds, setFeedbackUnlockedIds] = useState(new Set());
   const [theme, setTheme] = useState('dark');
   const [anonymousByDefault, setAnonymousByDefault] = useState(false);
+  const [socials, setSocials] = useState(INITIAL_USER.socials);
   const [friendIds, setFriendIds] = useState(new Set());
   const [sentRequests, setSentRequests] = useState(new Set());
   const [receivedRequests, setReceivedRequests] = useState(INITIAL_FRIEND_REQUESTS);
@@ -275,6 +276,8 @@ function App() {
             setTheme={setTheme}
             anonymousByDefault={anonymousByDefault}
             setAnonymousByDefault={setAnonymousByDefault}
+            socials={socials}
+            setSocials={setSocials}
           />
         );
       default:

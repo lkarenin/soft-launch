@@ -2,7 +2,16 @@ import React from 'react';
 import Avatar from '../components/Avatar';
 import TopBar from '../components/TopBar';
 import { USERS, PROJECTS, INTERESTS } from '../data';
-import { SparkIcon, UserPlusIcon, CheckIcon, InterestIcon } from '../components/Icons';
+import { SparkIcon, UserPlusIcon, CheckIcon, InterestIcon, LinkedInIcon, GitHubIcon, BehanceIcon, InstagramIcon, TwitterXIcon, GlobeIcon } from '../components/Icons';
+
+const SOCIAL_CONFIG = [
+  { key: 'linkedin',  Icon: LinkedInIcon,  label: 'LinkedIn',  href: (v) => `https://linkedin.com/in/${v}` },
+  { key: 'github',    Icon: GitHubIcon,    label: 'GitHub',    href: (v) => `https://github.com/${v}` },
+  { key: 'behance',   Icon: BehanceIcon,   label: 'Behance',   href: (v) => `https://behance.net/${v}` },
+  { key: 'instagram', Icon: InstagramIcon, label: 'Instagram', href: (v) => `https://instagram.com/${v}` },
+  { key: 'twitter',   Icon: TwitterXIcon,  label: 'X',         href: (v) => `https://x.com/${v}` },
+  { key: 'website',   Icon: GlobeIcon,     label: 'Website',   href: (v) => v.startsWith('http') ? v : `https://${v}` },
+];
 
 function interestLabel(id) {
   return INTERESTS.find((i) => i.id === id)?.label || id;
@@ -72,6 +81,26 @@ export default function UserProfile({ nav, seed, friendIds, sentRequests, onSend
         <div className="up-actions">
           <FriendButton />
         </div>
+
+        {user.socials && Object.values(user.socials).some(Boolean) && (
+          <div className="up-socials">
+            {SOCIAL_CONFIG.map(({ key, Icon, label, href }) =>
+              user.socials[key] ? (
+                <a
+                  key={key}
+                  className="up-social-btn"
+                  href={href(user.socials[key])}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Icon size={18} />
+                </a>
+              ) : null
+            )}
+          </div>
+        )}
       </div>
 
       {user.interests?.length > 0 && (

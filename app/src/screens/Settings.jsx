@@ -1,11 +1,26 @@
 import React from 'react';
 import TopBar from '../components/TopBar';
+import { LinkedInIcon, GitHubIcon, BehanceIcon, InstagramIcon, TwitterXIcon, GlobeIcon } from '../components/Icons';
 
-export default function Settings({ nav, theme, setTheme, anonymousByDefault, setAnonymousByDefault }) {
+const SOCIAL_FIELDS = [
+  { key: 'linkedin',  Icon: LinkedInIcon,  label: 'LinkedIn',  placeholder: 'yourname' },
+  { key: 'github',    Icon: GitHubIcon,    label: 'GitHub',    placeholder: 'yourname' },
+  { key: 'behance',   Icon: BehanceIcon,   label: 'Behance',   placeholder: 'yourname' },
+  { key: 'instagram', Icon: InstagramIcon, label: 'Instagram', placeholder: 'yourhandle' },
+  { key: 'twitter',   Icon: TwitterXIcon,  label: 'X / Twitter', placeholder: 'yourhandle' },
+  { key: 'website',   Icon: GlobeIcon,     label: 'Website',   placeholder: 'yoursite.com' },
+];
+
+export default function Settings({ nav, theme, setTheme, anonymousByDefault, setAnonymousByDefault, socials, setSocials }) {
+  function updateSocial(key, value) {
+    setSocials((s) => ({ ...s, [key]: value }));
+  }
+
   return (
     <div>
       <TopBar onBack={() => nav.back()} title="Settings" />
       <div className="settings">
+
         <section className="settings-group">
           <div className="settings-group-label">Appearance</div>
           <div className="settings-row">
@@ -53,6 +68,30 @@ export default function Settings({ nav, theme, setTheme, anonymousByDefault, set
             />
           </div>
         </section>
+
+        <section className="settings-group">
+          <div className="settings-group-label">Social Links</div>
+          <p className="settings-group-desc">These appear on your profile so others can find you elsewhere.</p>
+          {SOCIAL_FIELDS.map(({ key, Icon, label, placeholder }) => (
+            <div key={key} className="settings-social-row">
+              <div className="settings-social-icon"><Icon size={18} /></div>
+              <div className="settings-social-field">
+                <label className="settings-social-label">{label}</label>
+                <input
+                  className="settings-social-input"
+                  type="text"
+                  placeholder={placeholder}
+                  value={socials?.[key] || ''}
+                  onChange={(e) => updateSocial(key, e.target.value)}
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  spellCheck={false}
+                />
+              </div>
+            </div>
+          ))}
+        </section>
+
       </div>
     </div>
   );

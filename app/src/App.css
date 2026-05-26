@@ -2353,6 +2353,33 @@
 .up-stat-div { width: 1px; height: 28px; background: var(--line); }
 .up-actions { display: flex; gap: 10px; align-items: center; margin-top: 4px; }
 
+.up-socials {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 14px;
+}
+.up-social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink-muted);
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+  text-decoration: none;
+}
+.up-social-btn:hover {
+  background: var(--surface-muted);
+  color: var(--ink);
+  border-color: var(--ink-faint);
+}
+
 /* Friend button */
 .friend-btn {
   height: 40px; padding: 0 20px;
@@ -2461,6 +2488,12 @@
    ============================================================ */
 .settings { padding: 8px 22px 80px; }
 .settings-group { margin-bottom: 24px; }
+.settings-group-desc {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin: -6px 4px 12px;
+  line-height: 1.4;
+}
 .settings-group-label {
   font-size: 11px;
   letter-spacing: 0.12em;
@@ -2489,6 +2522,46 @@
   margin: 0;
   line-height: 1.45;
 }
+
+.settings-social-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface-soft);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-lg);
+  padding: 12px 16px;
+  margin-bottom: 6px;
+}
+.settings-social-icon {
+  color: var(--ink-muted);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+.settings-social-field {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.settings-social-label {
+  font-size: 11px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.settings-social-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: var(--ink);
+  padding: 0;
+  width: 100%;
+}
+.settings-social-input::placeholder { color: var(--ink-faint); }
 
 .seg-toggle {
   display: inline-flex;
