@@ -10,7 +10,6 @@ const TABS = [
   { id: 'given', label: 'Given' },
   { id: 'received', label: 'Received' },
   { id: 'saved', label: 'Saved' },
-  { id: 'friends', label: 'Friends' },
 ];
 
 function interestLabel(id) {
@@ -66,7 +65,10 @@ export default function Profile({ nav, user, myProjects, savedIds, allProjects, 
         <div className="karma-num">
           <span><SparkIcon size={22} /></span>
           {user.karma.toLocaleString()}
-          <small>karma</small>
+          <small>available to spend</small>
+        </div>
+        <div className="karma-lifetime">
+          <SparkIcon size={12} /> {(user.lifetimeKarma ?? user.karma).toLocaleString()} lifetime earned
         </div>
         {/* Reach & engagement — replaces the old tier-progress block.
             Shows how the user's projects are performing in the feed
@@ -76,17 +78,17 @@ export default function Profile({ nav, user, myProjects, savedIds, allProjects, 
           <div className="engagement-stat" role="listitem">
             <span className="engagement-stat__icon"><Eye size={16} /></span>
             <span className="engagement-stat__num">{(user.views ?? 0).toLocaleString()}</span>
-            <span className="engagement-stat__label">project views</span>
+            <span className="engagement-stat__label">views</span>
           </div>
           <div className="engagement-stat" role="listitem">
             <span className="engagement-stat__icon"><FeedIcon size={15} /></span>
             <span className="engagement-stat__num">{(user.impressions ?? 0).toLocaleString()}</span>
-            <span className="engagement-stat__label">feed impressions</span>
+            <span className="engagement-stat__label">impressions</span>
           </div>
           <div className="engagement-stat" role="listitem">
             <span className="engagement-stat__icon"><ChatIcon size={15} /></span>
             <span className="engagement-stat__num">{(user.feedbackReceived ?? 0).toLocaleString()}</span>
-            <span className="engagement-stat__label">feedback received</span>
+            <span className="engagement-stat__label">feedback</span>
           </div>
         </div>
       </div>
@@ -115,8 +117,13 @@ export default function Profile({ nav, user, myProjects, savedIds, allProjects, 
             {allProjects.filter(p => p.mine).map((p, idx) => (
               <button key={p.id} className="tile" onClick={() => nav.go('projectDetail', { id: p.id })}>
                 <div
-                  className={idx % 2 === 0 ? 'gradient-blue' : 'gradient-purple'}
-                  style={{ width: 52, height: 52, borderRadius: 12, flexShrink: 0 }}
+                  className={p.coverImage ? '' : (idx % 2 === 0 ? 'gradient-blue' : 'gradient-purple')}
+                  style={{
+                    width: 52, height: 52, borderRadius: 12, flexShrink: 0,
+                    ...(p.coverImage
+                      ? { backgroundImage: `url(${p.coverImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundColor: p.cover }
+                      : {}),
+                  }}
                 />
                 <div className="body">
                   <h4>{p.title}</h4>
@@ -201,8 +208,13 @@ export default function Profile({ nav, user, myProjects, savedIds, allProjects, 
             ) : savedProjects.map((p, idx) => (
               <button key={p.id} className="tile" onClick={() => nav.go('projectDetail', { id: p.id })}>
                 <div
-                  className={idx % 2 === 0 ? 'gradient-blue' : 'gradient-purple'}
-                  style={{ width: 52, height: 52, borderRadius: 12, flexShrink: 0 }}
+                  className={p.coverImage ? '' : (idx % 2 === 0 ? 'gradient-blue' : 'gradient-purple')}
+                  style={{
+                    width: 52, height: 52, borderRadius: 12, flexShrink: 0,
+                    ...(p.coverImage
+                      ? { backgroundImage: `url(${p.coverImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundColor: p.cover }
+                      : {}),
+                  }}
                 />
                 <div className="body">
                   <h4>{p.title}</h4>

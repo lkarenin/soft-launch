@@ -58,19 +58,6 @@ export default function EventRsvp({ nav, eventId, onSubmit }) {
           </div>
         ))}
 
-        {/* Photo upload (decorative) */}
-        <div className="rsvp-field">
-          <label className="rsvp-label">Attach photos <span className="optional">(optional)</span></label>
-          <button className="rsvp-upload">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="17 8 12 3 7 8" />
-              <line x1="12" y1="3" x2="12" y2="15" />
-            </svg>
-            <span>Upload</span>
-          </button>
-        </div>
-
         {/* Buddy toggle */}
         <div className="buddy-toggle">
           <div className="t-text">

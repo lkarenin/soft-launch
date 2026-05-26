@@ -39,10 +39,12 @@ function ProjectFeedCard({ project, onOpen, isSaved, onSave }) {
           </div>
           {project.badge && <BadgePill id={project.badge} />}
         </div>
-        <div className="karma-pill karma-tag">
-          <span className="spark"><SparkIcon size={13} /></span>
-          {project.karma}
-        </div>
+        {project.mine && (
+          <div className="karma-pill karma-tag">
+            <span className="spark"><SparkIcon size={13} /></span>
+            {project.karma}
+          </div>
+        )}
         <button
           className={`save ${isSaved ? 'is-saved' : ''}`}
           onClick={(e) => { e.stopPropagation(); onSave(); }}
@@ -95,12 +97,7 @@ function GridProjectCard({ project, onOpen }) {
     : { background: project.cover };
   return (
     <button className="grid-card" onClick={onOpen}>
-      <div className="cover" style={coverStyle}>
-        <div className="karma-pill karma-tag" style={{ position: 'absolute', bottom: 10, left: 10 }}>
-          <span className="spark"><SparkIcon size={12} /></span>
-          {project.karma}
-        </div>
-      </div>
+      <div className="cover" style={coverStyle} />
       <div className="body">
         <h4>{project.title}</h4>
         <div className="meta">{project.author} · {interestLabel(project.interest)}</div>

@@ -1,17 +1,114 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Avatar from '../components/Avatar';
 import StarRating from '../components/StarRating';
 import BadgePill from '../components/BadgePill';
 import { ChevronLeft, BookmarkIcon, SparkIcon } from '../components/Icons';
 import { INTERESTS } from '../data';
 
+const BOOST_AMOUNTS = [10, 25, 50, 100];
+
+function KarmaBoostSheet({ project, userKarma, onSpend, onClose }) {
+  return (
+    <>
+      <div className="sheet-backdrop" onClick={onClose} />
+      <div className="karma-sheet">
+        <div className="karma-sheet-handle" />
+        <div className="karma-sheet-head">
+          <div className="karma-sheet-title">Boost this project</div>
+          <div className="karma-sheet-sub">Spend karma to push your project higher in the feed. It compounds — the more you add, the more visible it gets.</div>
+        </div>
+
+        <div className="karma-sheet-meter">
+          <div className="karma-sheet-meter-row">
+            <span className="karma-sheet-meter-label">Project karma</span>
+            <span className="karma-sheet-meter-val">
+              <SparkIcon size={13} /> {project.karma}
+            </span>
+          </div>
+          <div className="karma-sheet-meter-row">
+            <span className="karma-sheet-meter-label">Your balance</span>
+            <span className="karma-sheet-meter-val">{userKarma.toLocaleString()} available</span>
+          </div>
+        </div>
+
+        <div className="karma-boost-amounts">
+          {BOOST_AMOUNTS.map((amount) => (
+            <button
+              key={amount}
+              className="karma-boost-btn"
+              disabled={userKarma < amount}
+              onClick={() => { onSpend(amount); onClose(); }}
+            >
+              <SparkIcon size={13} />
+              +{amount}
+            </button>
+          ))}
+        </div>
+
+        <button className="btn-ghost" style={{ width: '100%', marginTop: 8 }} onClick={onClose}>Cancel</button>
+      </div>
+    </>
+  );
+}
+
+function DotsMenu({ nav, projectId }) {
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function handleClick(e) {
+      if (menuRef.current && !menuRef.current.contains(e.target)) setOpen(false);
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [open]);
+
+  return (
+    <div ref={menuRef} style={{ position: 'absolute', top: 12, right: 14, zIndex: 12 }}>
+      <button
+        onClick={() => setOpen((v) => !v)}
+        aria-label="More options"
+        style={{
+          width: 36, height: 36, borderRadius: 999,
+          background: 'rgba(255,253,249,0.85)',
+          backdropFilter: 'blur(6px)',
+          color: '#1A1A1A',
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 18, fontWeight: 700, letterSpacing: 1,
+        }}
+      >
+        ···
+      </button>
+      {open && (
+        <div className="dots-menu">
+          <button className="dots-item" onClick={() => { setOpen(false); nav.go('newProject'); }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Edit project
+          </button>
+          <button className="dots-item" onClick={() => { setOpen(false); if (navigator.share) { navigator.share({ title: 'Check this out on Foretold', url: window.location.href }); } }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            Share project
+          </button>
+          <div className="dots-divider" />
+          <button className="dots-item dots-item--danger" onClick={() => { setOpen(false); nav.back(); }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+            Delete project
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function interestLabel(id) {
   return INTERESTS.find((i) => i.id === id)?.label || 'Idea';
 }
 
-export default function ProjectDetail({ nav, project, isSaved, toggleSave, feedbackUnlocked }) {
+export default function ProjectDetail({ nav, project, isSaved, toggleSave, feedbackUnlocked, user, spendKarma }) {
   const [tab, setTab] = useState('project');
   const effectiveTab = !feedbackUnlocked ? 'project' : tab;
+  const [showBoost, setShowBoost] = useState(false);
 
   return (
     <div style={{ position: 'relative', minHeight: '100%' }}>
@@ -30,6 +127,8 @@ export default function ProjectDetail({ nav, project, isSaved, toggleSave, feedb
       >
         <ChevronLeft size={20} />
       </button>
+
+      {project.mine && <DotsMenu nav={nav} projectId={project.id} />}
 
       {feedbackUnlocked && (
         <div className="pill-toggle" role="tablist" aria-label="Project tabs">
@@ -77,10 +176,16 @@ export default function ProjectDetail({ nav, project, isSaved, toggleSave, feedb
                 </button>
               )}
               <div className="spacer" />
-              <div className="karma-pill">
-                <span className="spark"><SparkIcon size={13} /></span>
-                {project.karma}
-              </div>
+              {project.mine && (
+                <button
+                  className="karma-pill karma-pill--boost"
+                  onClick={() => setShowBoost(true)}
+                  aria-label="Boost project with karma"
+                >
+                  <span className="spark"><SparkIcon size={13} /></span>
+                  {project.karma}
+                </button>
+              )}
             </div>
 
             <h1 className="serif">{project.title}</h1>
@@ -115,27 +220,38 @@ export default function ProjectDetail({ nav, project, isSaved, toggleSave, feedb
               </div>
             ))}
           </div>
-          <div className="float-cta">
-            <button
-              className={`save-btn ${isSaved ? 'is-saved' : ''}`}
-              onClick={toggleSave}
-              aria-label={isSaved ? 'Saved' : 'Save'}
-            >
-              <BookmarkIcon size={20} filled={isSaved} />
-            </button>
-            <button
-              className="btn-primary accent"
-              onClick={() => nav.go('feedbackForm', { id: project.id })}
-            >
-              Give feedback
-              <span className="karma-pill" style={{ background: 'rgba(255,255,255,0.18)', border: '1px solid rgba(255,255,255,0.28)', color: 'var(--btn-accent-text)', height: 24, padding: '0 8px' }}>
-                <SparkIcon size={12} /> +15
-              </span>
-            </button>
-          </div>
+          {!project.mine && (
+            <div className="float-cta">
+              <button
+                className={`save-btn ${isSaved ? 'is-saved' : ''}`}
+                onClick={toggleSave}
+                aria-label={isSaved ? 'Saved' : 'Save'}
+              >
+                <BookmarkIcon size={20} filled={isSaved} />
+              </button>
+              <button
+                className="btn-primary accent"
+                onClick={() => nav.go('feedbackForm', { id: project.id })}
+              >
+                Give feedback
+                <span className="karma-pill" style={{ background: 'rgba(255,255,255,0.18)', border: '1px solid rgba(255,255,255,0.28)', color: 'var(--btn-accent-text)', height: 24, padding: '0 8px' }}>
+                  <SparkIcon size={12} /> +15
+                </span>
+              </button>
+            </div>
+          )}
         </>
       ) : (
         <FeedbackTab project={project} />
+      )}
+
+      {showBoost && (
+        <KarmaBoostSheet
+          project={project}
+          userKarma={user?.karma ?? 0}
+          onSpend={(amount) => spendKarma(project.id, amount)}
+          onClose={() => setShowBoost(false)}
+        />
       )}
     </div>
   );

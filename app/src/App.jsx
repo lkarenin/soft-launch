@@ -30,7 +30,7 @@ function App() {
   const [savedIds, setSavedIds] = useState(new Set(SAVED));
   const [savedEventIds, setSavedEventIds] = useState(new Set());
   const [feedbackUnlockedIds, setFeedbackUnlockedIds] = useState(new Set());
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
   const [anonymousByDefault, setAnonymousByDefault] = useState(false);
   const [socials, setSocials] = useState(INITIAL_USER.socials);
   const [friendIds, setFriendIds] = useState(new Set());
@@ -53,7 +53,7 @@ function App() {
       karma: 84,
       feedbackCount: 9,
       cover: '#211908',
-      coverImage: `${import.meta.env.BASE_URL}covers/cover-1.png`,
+      coverImage: `${import.meta.env.BASE_URL}covers/thumbnail1.jpg`,
       rating: 0, ratingCount: 0,
       sections: [
         { label: 'The idea', body: 'Every weekday morning, I send myself a question - "what would make today feel like mine?" I want to send a softer version of that to other people who struggle to start.' },
@@ -95,8 +95,14 @@ function App() {
   }, []);
 
   const awardKarma = useCallback((amount, reason) => {
-    setUser((u) => ({ ...u, karma: u.karma + amount }));
+    setUser((u) => ({ ...u, karma: u.karma + amount, lifetimeKarma: (u.lifetimeKarma || 0) + amount }));
     showToast(`+${amount} karma`, reason);
+  }, [showToast]);
+
+  const spendKarma = useCallback((projectId, amount) => {
+    setUser((u) => ({ ...u, karma: Math.max(0, u.karma - amount) }));
+    setMyProjects((arr) => arr.map((p) => p.id === projectId ? { ...p, karma: p.karma + amount } : p));
+    showToast(`+${amount} karma`, 'Boosted your project');
   }, [showToast]);
 
   const toggleSave = useCallback((id) => {
@@ -190,6 +196,8 @@ function App() {
             isSaved={savedIds.has(current.params.id)}
             toggleSave={() => toggleSave(current.params.id)}
             feedbackUnlocked={feedbackUnlockedIds.has(current.params.id)}
+            user={user}
+            spendKarma={spendKarma}
           />
         );
       case 'feedbackForm':

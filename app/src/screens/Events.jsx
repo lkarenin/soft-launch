@@ -204,7 +204,10 @@ export default function Events({ nav, savedEventIds, toggleSaveEvent }) {
                       )}
                     </div>
                   </div>
-                  <div className={`ev-cover-thumb ${idx % 2 === 0 ? 'gradient-blue' : 'gradient-purple'}`} />
+                  <div
+                    className={`ev-cover-thumb ${e.coverImage ? '' : (idx % 2 === 0 ? 'gradient-blue' : 'gradient-purple')}`}
+                    style={e.coverImage ? { backgroundImage: `url(${e.coverImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundColor: e.cover } : undefined}
+                  />
                 </div>
               </div>
             );
