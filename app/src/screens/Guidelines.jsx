@@ -25,7 +25,7 @@ const RULES = [
   },
   {
     title: 'Respect privacy',
-    body: 'Some creators choose to stay anonymous until they receive feedback. Don\'t share details about projects or people outside of Foretold without permission.',
+    body: 'Some creators choose to stay anonymous until they receive feedback. Don\'t share details about projects or people outside of Soft Launch without permission.',
   },
 ];
 
@@ -37,7 +37,7 @@ export default function Guidelines({ nav }) {
         <div className="karma-callout" style={{ marginBottom: 20 }}>
           <div className="icon"><SparkIcon size={14} /></div>
           <p>
-            Foretold runs on <strong>karma</strong> - the more thoughtful you are, the more the community gives back. These guidelines exist to keep feedback generous, useful, and safe.
+            Soft Launch runs on <strong>karma</strong> - the more thoughtful you are, the more the community gives back. These guidelines exist to keep feedback generous, useful, and safe.
           </p>
         </div>
 

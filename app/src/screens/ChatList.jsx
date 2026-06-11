@@ -24,7 +24,7 @@ export default function ChatList({ nav, receivedRequests }) {
       </div>
 
       <div className="chat-list">
-        <p className="muted small" style={{ padding: '4px 22px 14px' }}>Your event buddies, the people you've given feedback to, and friends from Foretold rooms.</p>
+        <p className="muted small" style={{ padding: '4px 22px 14px' }}>Your event buddies, the people you've given feedback to, and friends from Soft Launch rooms.</p>
         {CHATS.map((c) => (
           <div key={c.id} className="chat-row-wrap">
             <button

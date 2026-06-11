@@ -313,7 +313,7 @@ export default function Onboarding({ nav }) {
       {step === 'karma' && (
         <>
           <h2>How <em style={{ fontStyle: 'normal', fontWeight: 700 }}>karma</em> works.</h2>
-          <p className="lede">Karma is your reputation on Foretold. Earn it by contributing — spend it by getting seen.</p>
+          <p className="lede">Karma is your reputation on Soft Launch. Earn it by contributing — spend it by getting seen.</p>
 
           <div className="karma-earn-list">
             <div className="karma-earn-row">
@@ -340,7 +340,7 @@ export default function Onboarding({ nav }) {
             <div className="karma-earn-row">
               <div className="karma-earn-info">
                 <span className="karma-earn-action">Attend an event</span>
-                <span className="karma-earn-desc">Show up to a Foretold gathering</span>
+                <span className="karma-earn-desc">Show up to a Soft Launch gathering</span>
               </div>
               <div className="karma-earn-badge"><SparkIcon size={12} /> +25</div>
             </div>

@@ -1,4 +1,4 @@
-# Foretold
+# Soft Launch
 
 An interactive prototype for a community feedback app — share an idea, give honest feedback, earn karma. Built with React 19 + Vite.
 
@@ -24,6 +24,6 @@ After the first push, enable Pages once in the GitHub UI:
 2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
 3. Re-run the latest workflow if needed.
 
-The site will be served at `https://<your-username>.github.io/foretold/`. The Vite config reads `NODE_ENV` and sets `base: '/foretold/'` for production builds, so static assets (covers, icons, etc.) resolve correctly under the sub-path.
+The site will be served at `https://<your-username>.github.io/soft-launch/`. The Vite config reads `NODE_ENV` and sets `base: '/soft-launch/'` for production builds, so static assets (covers, icons, etc.) resolve correctly under the sub-path.
 
 For Vercel/Netlify, point the project root at `app/`; no `base` change is needed.

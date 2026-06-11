@@ -1,4 +1,4 @@
-// Placeholder data for Foretold prototype
+// Placeholder data for Soft Launch prototype
 
 // Resolve any /public asset path so it works whether the app is served from
 // the domain root (Vercel, Netlify, local dev) or a subpath (GitHub Pages).
@@ -56,7 +56,7 @@ export const RATING_QUESTIONS = [
 export const PROJECT_BADGES = {
   'users-favorite': { label: "Users' Favorite", tone: 'rose' },
   'popular-week':   { label: 'Popular this Week', tone: 'amber' },
-  'staff-pick':     { label: 'Foretold Staff Pick', tone: 'plum' },
+  'staff-pick':     { label: 'Soft Launch Staff Pick', tone: 'plum' },
 };
 
 export const PROJECTS = [
@@ -209,7 +209,7 @@ export const EVENTS = [
     month: 'May',
     weekday: 'Sat',
     time: '10:00 AM',
-    host: 'Foretold x Common Room',
+    host: 'Soft Launch x Common Room',
     hostSeeds: ['maya', 'jules'],
     location: 'Online',
     category: 'workshop',

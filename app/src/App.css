@@ -1,108 +1,27 @@
 /* ============================================================
-   Foretold - interactive prototype
+   Soft Launch - interactive prototype
    ============================================================ */
 
 .stage {
+  position: relative;
   height: 100vh;
   height: 100dvh;
-  background: #09090b;
-  background-image: radial-gradient(ellipse 80% 60% at 50% 0%, color-mix(in srgb, var(--selected-bg) 12%, transparent), transparent 70%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-/* ── Phone shell: the outer frame (carries side buttons) ── */
-.phone-shell {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  /* Left side: mute + volume buttons */
-  /* Right side: power button */
-}
-.phone-shell::before {
-  content: '';
-  position: absolute;
-  left: -4px;
-  top: 108px;
-  width: 4px;
-  height: 36px;
-  background: #2c2c2e;
-  border-radius: 3px 0 0 3px;
-  box-shadow: 0 52px 0 #2c2c2e, 0 100px 0 #2c2c2e;
-}
-.phone-shell::after {
-  content: '';
-  position: absolute;
-  right: -4px;
-  top: 164px;
-  width: 4px;
-  height: 72px;
-  background: #2c2c2e;
-  border-radius: 0 3px 3px 0;
-}
-
-/* ── Device: the clipping container with the bezel ── */
-.device {
-  position: relative;
-  width: min(393px, calc(100vw - 40px));
-  height: min(852px, calc(100dvh - 32px));
   background: var(--bg-elev);
   display: flex;
   flex-direction: column;
-  border-radius: 50px;
-  border: 10px solid #1e1e20;
-  outline: 1px solid #3a3a3c;
-  outline-offset: -1px;
   overflow: hidden;
-  box-shadow:
-    0 0 0 1px #0a0a0a,
-    0 40px 100px rgba(0, 0, 0, 0.7),
-    0 12px 30px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
-/* ── Dynamic Island ── */
-.phone-island {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120px;
-  height: 34px;
-  background: #000;
-  border-radius: 20px;
-  z-index: 200;
-  pointer-events: none;
-}
-
-/* ── Status bar ── */
-.phone-statusbar {
+.device {
+  flex: 1;
+  min-height: 0;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 24px 0;
-  height: 54px;
-  flex-shrink: 0;
-  color: var(--ink);
-  position: relative;
-  z-index: 20;
-}
-.phone-time {
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-.phone-statusicons {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--ink);
+  flex-direction: column;
+  background: var(--bg-elev);
+  overflow: hidden;
 }
 
-/* ── Screen: the scrollable content area ── */
+/* ── Screen: the scrollable content area ──
 .screen {
   position: relative;
   flex: 1 1 0;
@@ -115,23 +34,6 @@
 @keyframes screenIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-/* ── Home indicator ── */
-.phone-home-bar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 6px 0 10px;
-  flex-shrink: 0;
-  background: var(--nav-bg);
-}
-.phone-home-pill {
-  width: 120px;
-  height: 5px;
-  border-radius: 99px;
-  background: var(--ink);
-  opacity: 0.3;
 }
 
 /* ============================================================
@@ -225,7 +127,7 @@
   top: 0;
   z-index: 10;
   background: var(--bg-elev);
-  padding: 14px 18px 10px;
+  padding: max(14px, env(safe-area-inset-top)) 18px 10px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -294,7 +196,7 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 4px;
-  padding: 10px 20px 12px;
+  padding: 10px 20px max(12px, env(safe-area-inset-bottom));
   background: var(--nav-bg);
   backdrop-filter: saturate(140%) blur(20px);
   -webkit-backdrop-filter: saturate(140%) blur(20px);

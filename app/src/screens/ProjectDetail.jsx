@@ -86,7 +86,7 @@ function DotsMenu({ nav, projectId }) {
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             Edit project
           </button>
-          <button className="dots-item" onClick={() => { setOpen(false); if (navigator.share) { navigator.share({ title: 'Check this out on Foretold', url: window.location.href }); } }}>
+          <button className="dots-item" onClick={() => { setOpen(false); if (navigator.share) { navigator.share({ title: 'Check this out on Soft Launch', url: window.location.href }); } }}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
             Share project
           </button>

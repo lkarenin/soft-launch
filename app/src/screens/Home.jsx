@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { INTERESTS } from '../data';
 
-const LOGO_SRC = `${import.meta.env.BASE_URL}foretold-logo.svg`;
+const LOGO_SRC = `${import.meta.env.BASE_URL}soft-launch-logo.svg`;
 import Avatar from '../components/Avatar';
 import StarRating from '../components/StarRating';
 import BadgePill from '../components/BadgePill';
@@ -260,7 +260,7 @@ export default function Home({ nav, user, projects, savedIds, toggleSave }) {
       <div className="topbar home-topbar">
         {!searchOpen ? (
           <>
-            <img src={LOGO_SRC} alt="Foretold" className="home-logo" />
+            <img src={LOGO_SRC} alt="Soft Launch" className="home-logo" />
             <div className="spacer" />
             <div className="feed-toggle" role="tablist" aria-label="Feed view">
               <button className={`ft ${view === 'feed' ? 'active' : ''}`} onClick={() => setView('feed')} role="tab" aria-selected={view === 'feed'}>

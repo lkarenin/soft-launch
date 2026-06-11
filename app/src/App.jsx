@@ -295,40 +295,13 @@ function App() {
 
   return (
     <div className="stage">
-      <div className="phone-shell">
-        <div className="device">
-          <div className="phone-island" aria-hidden="true" />
-          <div className="phone-statusbar" aria-hidden="true">
-            <span className="phone-time">9:41</span>
-            <div className="phone-statusicons">
-              <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor">
-                <rect x="0" y="7" width="3" height="5" rx="1"/>
-                <rect x="4.5" y="4.5" width="3" height="7.5" rx="1"/>
-                <rect x="9" y="2" width="3" height="10" rx="1"/>
-                <rect x="13.5" y="0" width="3" height="12" rx="1" opacity="0.35"/>
-              </svg>
-              <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" strokeLinecap="round">
-                <circle cx="8" cy="11" r="1.2" fill="currentColor" stroke="none"/>
-                <path d="M5 8.5Q8 6 11 8.5" strokeWidth="1.6"/>
-                <path d="M2.5 6Q8 2 13.5 6" strokeWidth="1.6"/>
-              </svg>
-              <svg width="27" height="13" viewBox="0 0 27 13" fill="currentColor">
-                <rect x="0.6" y="0.6" width="23" height="11.8" rx="3" stroke="currentColor" strokeWidth="1.2" fill="none"/>
-                <rect x="24" y="4" width="2.5" height="5" rx="1.2" opacity="0.45"/>
-                <rect x="2" y="2" width="18" height="9" rx="2"/>
-              </svg>
-            </div>
-          </div>
-          <div className="screen" key={current.name + JSON.stringify(current.params)}>
-            {renderScreen()}
-          </div>
-          {showNav && <BottomNav active={current.name} nav={nav} />}
-          <div className="phone-home-bar" aria-hidden="true">
-            <div className="phone-home-pill" />
-          </div>
+      <div className="device">
+        <div className="screen" key={current.name + JSON.stringify(current.params)}>
+          {renderScreen()}
         </div>
-        {toast && <KarmaToast key={toast.id} message={toast.message} sub={toast.sub} />}
+        {showNav && <BottomNav active={current.name} nav={nav} />}
       </div>
+      {toast && <KarmaToast key={toast.id} message={toast.message} sub={toast.sub} />}
     </div>
   );
 }
