@@ -9,19 +9,37 @@
   background: var(--bg-elev);
   display: flex;
   flex-direction: column;
+  align-items: stretch;
   overflow: hidden;
+}
+
+@media (min-width: 480px) {
+  .stage {
+    align-items: center;
+    background: var(--bg);
+    background-image: radial-gradient(ellipse 80% 60% at 50% 0%, color-mix(in srgb, var(--selected-bg) 12%, transparent), transparent 70%);
+  }
 }
 
 .device {
   flex: 1;
   min-height: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   background: var(--bg-elev);
   overflow: hidden;
 }
 
-/* ── Screen: the scrollable content area ──
+@media (min-width: 480px) {
+  .device {
+    width: min(393px, 100vw);
+    max-width: 393px;
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+/* ── Screen: the scrollable content area ── */
 .screen {
   position: relative;
   flex: 1 1 0;
