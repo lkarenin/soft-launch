@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+.claude/
+
+# Loose reference images dropped at the repo root during design work
+/Container*.png
