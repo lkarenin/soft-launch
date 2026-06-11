@@ -214,7 +214,7 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 4px;
-  padding: 10px 20px max(12px, env(safe-area-inset-bottom));
+  padding: 10px 20px var(--safe-bottom);
   background: var(--nav-bg);
   backdrop-filter: saturate(140%) blur(20px);
   -webkit-backdrop-filter: saturate(140%) blur(20px);
@@ -252,7 +252,7 @@
 /* Toast */
 .toast {
   position: absolute;
-  bottom: 90px;
+  bottom: calc(74px + var(--safe-bottom));
   left: 50%;
   transform: translateX(-50%);
   background: var(--toast-bg);
@@ -323,7 +323,7 @@
   margin: 0;
   text-align: center;
 }
-.splash .actions { display: flex; flex-direction: column; gap: 10px; padding-bottom: env(safe-area-inset-bottom, 0px); }
+.splash .actions { display: flex; flex-direction: column; gap: 10px; padding-bottom: var(--safe-bottom); }
 
 /* ============================================================
    Onboarding
@@ -599,7 +599,7 @@
   margin-top: auto;
   display: flex;
   gap: 10px;
-  padding: 16px 0 8px;
+  padding: 16px 0 var(--safe-bottom);
   background: linear-gradient(to bottom, var(--fade-bg-from) 0%, var(--fade-bg-to) 24%);
 }
 .onb-footer .btn-primary { flex: 1; }
@@ -695,7 +695,7 @@
   border-radius: 20px 20px 0 0;
   z-index: 41;
   animation: filterSheetUp 300ms cubic-bezier(0.2, 0.7, 0.1, 1);
-  padding-bottom: env(safe-area-inset-bottom, 16px);
+  padding-bottom: var(--safe-bottom);
 }
 @keyframes filterSheetUp {
   from { transform: translateX(-50%) translateY(100%); }
@@ -2064,7 +2064,7 @@
   bottom: 0; left: 0; right: 0;
   background: var(--surface);
   border-radius: var(--r-lg) var(--r-lg) 0 0;
-  padding: 12px 20px 28px;
+  padding: 12px 20px calc(16px + var(--safe-bottom));
   z-index: 400;
   animation: sheetUp 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }

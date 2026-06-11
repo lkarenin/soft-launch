@@ -1,4 +1,7 @@
 :root {
+  /* Extra space below nav/actions for iPhone home indicator & edge swipes */
+  --safe-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+
   /* Cosmos light — editorial paper-cream */
   --bg: #F3EFE5;
   --bg-elev: #F8F5EC;
